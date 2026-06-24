@@ -34,10 +34,10 @@ app.use((req, res) => {
   });
 });
 
-app.use((err, req, res, next) => {
-  next;
+app.use((err, req, res) => {
   res.status(500).json({
-    message: err.message,
+    message: 'Something went wrong',
+    error: err.message,
   });
 });
 
