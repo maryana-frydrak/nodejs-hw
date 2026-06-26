@@ -6,6 +6,7 @@ import { connectMongoDB } from './db/connectMongoDB';
 import { logger } from './middleware/logger';
 import { notFoundHandler } from './middleware/notFoundHandler';
 import { errorHandler } from './middleware/errorHandler';
+import notesRoutes from './routes/notesRoutes';
 
 dotenv.config();
 
@@ -43,6 +44,8 @@ app.use((err, req, res, next) => {
     error: err.message,
   });
 });
+
+app.use(notesRoutes);
 
 app.use(notFoundHandler);
 
