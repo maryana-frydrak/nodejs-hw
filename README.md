@@ -27,3 +27,11 @@
 - `GET /notes` - отримати список усіх нотаток.
 - `GET /notes/:noteId` - отримати детальну інформацію про нотатку.
 - `GET /test-error` - для перевірки обробки помилок.
+
+Параметри:
+
+tag (string): фільтрація за тегом (наприклад, ?tag=Todo).
+
+search (string): пошук за заголовком або контентом (наприклад, ?search=hello).
+
+Приклад запиту: 'http://localhost:3030/notes?tag=Todo&search=hello'
