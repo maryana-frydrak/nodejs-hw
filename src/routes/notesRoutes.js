@@ -7,7 +7,7 @@ import {
   updateNote,
 } from '../controllers/notesController.js';
 import {
-  getNotesSchema,
+  getAllNotesSchema,
   noteIdSchema,
   createNoteSchema,
   updateNoteSchema,
@@ -16,7 +16,7 @@ import { celebrate } from 'celebrate';
 
 const router = Router();
 
-router.get('/notes', celebrate(getNotesSchema), getAllNotes);
+router.get('/notes', celebrate(getAllNotesSchema), getAllNotes);
 
 router.get('/notes/:noteId', celebrate(noteIdSchema), getNoteById);
 
