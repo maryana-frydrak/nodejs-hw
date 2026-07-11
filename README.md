@@ -29,9 +29,12 @@
 - `GET /test-error` - для перевірки обробки помилок.
 
 Параметри:
+page (number): номер сторінки запиту (за замовчуванням 1).
+
+perPage (number): кількість елементів на сторінці (за замовчуванням 10).
 
 tag (string): фільтрація за тегом (наприклад, ?tag=Todo).
 
 search (string): пошук за заголовком або контентом (наприклад, ?search=hello).
 
-Приклад запиту: 'http://localhost:3030/notes?tag=Todo&search=hello'
+Приклад запиту: 'http://localhost:3000/notes?page=1&perPage=15&tag=Todo&search=hello'
