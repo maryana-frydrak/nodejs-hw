@@ -9,12 +9,14 @@ const isObjectId = (value, helpers) => {
   return value;
 };
 
-export const getNotesSchema = {
+export const getAllNotesSchema = {
   [Segments.QUERY]: Joi.object({
     page: Joi.number().integer().min(1).default(1),
     perPage: Joi.number().integer().min(5).max(20).default(10),
-    TAGS: Joi.string().optional(),
-    search: Joi.string().optional(),
+    tag: Joi.string()
+      .valid(...TAGS)
+      .optional(),
+    search: Joi.string().allow('').optional(),
   }),
 };
 
@@ -28,7 +30,7 @@ export const createNoteSchema = {
   [Segments.BODY]: Joi.object({
     title: Joi.string().min(1).required(),
     content: Joi.string().allow('').optional(),
-    TAGS: Joi.string()
+    tag: Joi.string()
       .valid(...TAGS)
       .optional(),
   }),
@@ -41,7 +43,7 @@ export const updateNoteSchema = {
   [Segments.BODY]: Joi.object({
     title: Joi.string().min(1).optional(),
     content: Joi.string().allow('').optional(),
-    TAGS: Joi.string()
+    tag: Joi.string()
       .valid(...TAGS)
       .optional(),
   }).min(1),
