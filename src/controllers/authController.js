@@ -5,6 +5,9 @@ import { createSession, setSessionCookies } from '../services/auth.js';
 import { Session } from '../models/session.js';
 import jwt from 'jsonwebtoken';
 import { sendEmail } from '../utils/sendMail.js';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import handlebars from 'handlebars';
 
 export const registerUser = async (req, res) => {
   const { email, password } = req.body;
@@ -120,16 +123,33 @@ export const requestResetEmail = async (req, res) => {
 
   const resetLink = `${process.env.FRONTEND_DOMAIN}/reset-password?token=${resetToken}`;
 
+  const templatePath = path.join(
+    process.cwd(),
+    'src',
+    'templates',
+    'reset-password-email.html',
+  );
+
+  const templateSource = await fs.readFile(templatePath, 'utf-8');
+
+  const template = handlebars.compile(templateSource);
+
+  const html = template({
+    name: user.name,
+    link: resetLink,
+  });
+
   try {
     await sendEmail({
       from: process.env.SMTP_FROM,
       to: email,
       subject: 'Reset your password',
-      template: 'reset-password-email.html',
-      context: {
-        name: user.name,
-        link: resetLink,
-      },
+      html: html,
+      // template: 'reset-password-email.html',
+      // context: {
+      //   name: user.name,
+      //   link: resetLink,
+      // },
     });
   } catch (error) {
     throw createHttpError(
