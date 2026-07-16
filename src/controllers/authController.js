@@ -145,11 +145,6 @@ export const requestResetEmail = async (req, res) => {
       to: email,
       subject: 'Reset your password',
       html: html,
-      // template: 'reset-password-email.html',
-      // context: {
-      //   name: user.name,
-      //   link: resetLink,
-      // },
     });
   } catch (error) {
     throw createHttpError(
